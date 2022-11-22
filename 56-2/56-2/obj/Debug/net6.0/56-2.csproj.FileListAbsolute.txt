@@ -1,0 +1,15 @@
+C:\Users\marku\source\repos\56-2\56-2\bin\Debug\net6.0\56-2.exe
+C:\Users\marku\source\repos\56-2\56-2\bin\Debug\net6.0\56-2.deps.json
+C:\Users\marku\source\repos\56-2\56-2\bin\Debug\net6.0\56-2.runtimeconfig.json
+C:\Users\marku\source\repos\56-2\56-2\bin\Debug\net6.0\56-2.dll
+C:\Users\marku\source\repos\56-2\56-2\bin\Debug\net6.0\56-2.pdb
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.csproj.AssemblyReference.cache
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.AssemblyInfoInputs.cache
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.AssemblyInfo.cs
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.csproj.CoreCompileInputs.cache
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.dll
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\refint\56-2.dll
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.pdb
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\56-2.genruntimeconfig.cache
+C:\Users\marku\source\repos\56-2\56-2\obj\Debug\net6.0\ref\56-2.dll

@@ -1,0 +1,15 @@
+C:\Users\marku\source\repos\68-5\68-5\bin\Debug\net6.0\68-5.exe
+C:\Users\marku\source\repos\68-5\68-5\bin\Debug\net6.0\68-5.deps.json
+C:\Users\marku\source\repos\68-5\68-5\bin\Debug\net6.0\68-5.runtimeconfig.json
+C:\Users\marku\source\repos\68-5\68-5\bin\Debug\net6.0\68-5.dll
+C:\Users\marku\source\repos\68-5\68-5\bin\Debug\net6.0\68-5.pdb
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.csproj.AssemblyReference.cache
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.AssemblyInfoInputs.cache
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.AssemblyInfo.cs
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.csproj.CoreCompileInputs.cache
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.dll
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\refint\68-5.dll
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.pdb
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\68-5.genruntimeconfig.cache
+C:\Users\marku\source\repos\68-5\68-5\obj\Debug\net6.0\ref\68-5.dll
