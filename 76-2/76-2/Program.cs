@@ -3,7 +3,8 @@
     internal class Program
     {
         static void Main(string[] args) {
-            string path = @"c:\users\marku\OneDrive\Dokument\lorem.txt";
+            //string path = @"c:\users\marku\OneDrive\Dokument\lorem.txt";
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\lorem.txt";
             Console.WriteLine("Longest word: " + longestWord(File.ReadAllText(path)));
         }
 

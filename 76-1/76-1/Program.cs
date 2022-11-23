@@ -4,7 +4,8 @@
     {
         static void Main(string[] args) {
             string text;
-            string path = @"c:\users\marku\OneDrive\Dokument\lorem.txt";
+            //string path = @"c:\users\marku\OneDrive\Dokument\lorem.txt";
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\lorem.txt";
             text = File.ReadAllText(path);
             Console.WriteLine("{0} words in file", numWordsInText(text));
         }
