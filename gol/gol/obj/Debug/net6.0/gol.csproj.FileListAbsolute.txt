@@ -1,0 +1,15 @@
+C:\Users\marku\source\repos\gol\gol\bin\Debug\net6.0\gol.exe
+C:\Users\marku\source\repos\gol\gol\bin\Debug\net6.0\gol.deps.json
+C:\Users\marku\source\repos\gol\gol\bin\Debug\net6.0\gol.runtimeconfig.json
+C:\Users\marku\source\repos\gol\gol\bin\Debug\net6.0\gol.dll
+C:\Users\marku\source\repos\gol\gol\bin\Debug\net6.0\gol.pdb
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.csproj.AssemblyReference.cache
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.AssemblyInfoInputs.cache
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.AssemblyInfo.cs
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.csproj.CoreCompileInputs.cache
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.dll
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\refint\gol.dll
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.pdb
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\gol.genruntimeconfig.cache
+C:\Users\marku\source\repos\gol\gol\obj\Debug\net6.0\ref\gol.dll
