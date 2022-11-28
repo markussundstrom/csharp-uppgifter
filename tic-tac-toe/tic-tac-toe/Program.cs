@@ -38,6 +38,7 @@ namespace tic_tac_toe
                 } else {
                     screen.Message = $"Player {game.WinningPlayer} wins!";
                 }
+                screen.setBoard((int[,])game.getBoard());
                 screen.drawScreen();
                 Console.WriteLine("Play again? (y/n)");
                 while (true) {
