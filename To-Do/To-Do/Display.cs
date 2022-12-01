@@ -10,56 +10,123 @@
 
 
 
-        public void DrawScreen(int selected) 
+        public void DrawScreen() 
         {
+
             Console.Clear();
-            Console.WriteLine($"{AppName}: {Context}");
-            for (int i = 0; i < _items.Count; i++) 
+            Console.CursorVisible = false;
+            string title = $"{AppName}: {Context}";
+            for (int i = 0; i < (Console.BufferWidth / 2) - (title.Length / 2); i++)
             {
-                if (i == selected)
+                Console.CursorLeft = i;
+                Console.CursorTop = 0;
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.Write(" ");
+            }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write(title);
+
+            for (int i = (Console.BufferWidth / 2) + (title.Length / 2); i < Console.BufferWidth; i++)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.Write(" ");
+            }
+
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            Console.WriteLine(Help.PadRight(Console.WindowWidth, ' '));
+            Console.ResetColor();
+            Console.CursorTop = 2;
+            Console.CursorLeft = 0;
+        }
+
+        public void RenderLists(List<TaskList> lists, int selected) 
+        {
+            Console.ResetColor();
+            for (int i = 0; i < lists.Count; i++)
+            {
+                if (selected == i)
                 {
-                    Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.White;
                 }
-                Console.WriteLine(_items[i]);
+                Console.WriteLine(lists[i].Title);
                 Console.ResetColor();
             }
-            Console.WriteLine(Message);
-            Console.WriteLine(Help);
         }
 
-        public void RenderLists(List<TaskList> lists) 
+        public void RenderTasks(TaskList list, int selected)
         {
-            _items.Clear();
-            foreach (var list in lists)
+            Console.ResetColor();
+            for (int i = 0; i < list.Tasks.Count; i++)
             {
-                _items.Add(list.Name);
+                var priocolor = ConsoleColor.White;
+                if (list.Tasks[i].Completed)
+                {
+                    priocolor = ConsoleColor.Green;
+                }
+                else
+                {
+                    switch (list.Tasks[i].Priority)
+                    {
+                        case 1:
+                            priocolor = ConsoleColor.Red;
+                            break;
+                        case 2:
+                            priocolor = ConsoleColor.DarkYellow;
+                            break;
+                        case 3:
+                            priocolor = ConsoleColor.Yellow;
+                            break;
+                    }
+                }
+                Console.ForegroundColor = priocolor;
+                Console.Write((list.Tasks[i].Completed) ? "[X]" : "[-]");
+                Console.ResetColor();
+                if (selected == i)
+                {
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.White;
+                }
+                Console.WriteLine(list.Tasks[i].Title);
+                Console.ResetColor();
             }
         }
 
-        public void RenderTasks(TaskList list)
+        public void RenderTaskview(Task task)
         {
-            _items.Clear();
-            foreach (var task in list.Tasks)
+            Console.WriteLine(task.Title);
+            Console.Write("Priority ");
+            var priocolor = ConsoleColor.White;
+            switch (task.Priority)
             {
-                _items.Add(task.Completed.ToString() + "1" + task.Title);
+                case 1:
+                    priocolor = ConsoleColor.Red;
+                    break;
+                case 2:
+                    priocolor = ConsoleColor.DarkYellow;
+                    break;
+                case 3:
+                    priocolor = ConsoleColor.Yellow;
+                    break;
             }
+            Console.ForegroundColor = priocolor;
+            Console.WriteLine(task.Priority);
+            Console.ForegroundColor = (task.Completed) ? ConsoleColor.Green : priocolor;
+            Console.WriteLine(task.Completed ? "Complete" : "Not Complete");
+            Console.ResetColor();
         }
 
-        public void ShowAddListMessage()
+        public void InputRequest(string text)
         {
             Console.CursorLeft = 0;
-            Console.CursorTop = 10;
-            Console.Write("Enter title of new list:");
-            Console.CursorTop++;
-        }
-
-        public void ShowAddTaskMessage()
-        {
-            Console.CursorLeft = 0;
-            Console.CursorTop = 10;
-            Console.Write("Enter title of new task:");
-            Console.CursorTop++;
+            Console.CursorTop = Console.WindowHeight - 8;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(text.PadRight(Console.WindowWidth, ' '));
+            Console.ResetColor();
+            Console.CursorVisible = true;
         }
     }
 }

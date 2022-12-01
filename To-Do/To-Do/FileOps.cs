@@ -23,5 +23,9 @@
                 return string.Empty;
             }
         }
+        public void PutTaskFileContent(string jsonstring)
+        {
+            File.WriteAllText(_file, jsonstring);
+        }
     }
 }

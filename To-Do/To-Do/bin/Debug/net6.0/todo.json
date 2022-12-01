@@ -1,23 +1,36 @@
-﻿[
+[
   {
-    "name": "List 1",
-    "tasks": [
+    "Title": "List 1",
+    "Tasks": [
       {
-        "title": "Task 1",
-        "completed": false
+        "Title": "Task 1",
+        "Completed": false,
+        "Priority": 3
       },
       {
-        "title": "Task 2",
-        "completed": true
+        "Title": "Task 2",
+        "Completed": false,
+        "Priority": 1
+      },
+      {
+        "Title": "test shutdown",
+        "Completed": true,
+        "Priority": 0
       }
     ]
   },
   {
-    "name": "List 2",
-    "tasks": [
+    "Title": "List 2",
+    "Tasks": [
       {
-        "title": "Task 3",
-        "completed": false
+        "Title": "Task 3",
+        "Completed": false,
+        "Priority": 2
+      },
+      {
+        "Title": "Task 4",
+        "Completed": true,
+        "Priority": 1
       }
     ]
   }

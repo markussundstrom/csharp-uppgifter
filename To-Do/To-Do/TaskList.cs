@@ -2,16 +2,16 @@
 {
     public class TaskList
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
         public List<Task> Tasks { get; set; }
 
         public TaskList()
         {
         }
 
-        public TaskList(string name, List<Task> tasks)
+        public TaskList(string title, List<Task> tasks)
         {
-            Name = name;
+            Title = title;
             Tasks = tasks;
         }
     }
