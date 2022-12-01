@@ -72,10 +72,11 @@
                         break;
 
                     case 'a':
+                        string input = "";
                         if (state == (int)State.Lists)
                         {
                             display.InputRequest("Enter name of new list:");
-                            string input = Console.ReadLine();
+                            input = Console.ReadLine();
                             if (!String.IsNullOrEmpty(input))
                             {
                                 taskmanager.AddTaskList(input);
@@ -84,7 +85,7 @@
                         else if (state == (int)State.Tasks)
                         {
                             display.InputRequest("Enter name of new task:");
-                            string input = Console.ReadLine();
+                            input = Console.ReadLine();
                             if (!String.IsNullOrEmpty(input))
                             {
                                 taskmanager.AddTask(input, selectedList);
@@ -156,26 +157,45 @@
                             }
                         }
                         break;
+
                     case 't':
+                        string editing = "";
                         if (state == (int)State.Tasks)
                         {
-                            display.InputRequest("Enter new title of list. Leave empty to cancel edit");
-                            string input = Console.ReadLine();
-                            if (!String.IsNullOrEmpty(input))
+                            editing = "list";
+                        }
+                        else if (state == (int)State.Taskview)
+                        {
+                            editing = "task";
+                        }
+                        display.InputRequest("Enter new title of "+ editing + ". Leave empty to cancel edit");
+                        string titleInput = Console.ReadLine();
+                        if (!String.IsNullOrEmpty(titleInput))
+                        {
+                            display.InputRequest($"Change title of {editing} to {titleInput}? (y/n)");
+                            while (true)
                             {
-                                taskmanager.SetListTitle(selectedList, input);
+                                char choice = (Console.ReadKey(true).KeyChar);
+                                if (choice == 'y')
+                                {
+                                    if (state == (int)State.Tasks)
+                                    {
+                                        taskmanager.SetListTitle(selectedList, titleInput);
+                                    }
+                                    else if (state == (int)State.Taskview)
+                                    {
+                                        taskmanager.SetTaskTitle(selectedList, selectedTask, titleInput);
+                                    }
+                                    break;
+                                }
+                                else if (choice == 'n')
+                                {
+                                    break;
+                                }
                             }
                         }
-                        if (state == (int)State.Taskview)
-                        {
-                            display.InputRequest("Enter new title of task. Leave empty to cancel edit");
-                            string input = Console.ReadLine();
-                            if (!String.IsNullOrEmpty(input))
-                            {
-                                taskmanager.SetTaskTitle(selectedList, selectedTask, input);
-                            } 
-                        }
                         break;
+
                     case 'c':
                         if (state == (int)State.Taskview)
                         {
@@ -189,14 +209,14 @@
                             display.InputRequest("Enter new priority (1-3), leave empty to cancel:");
                             while (true)
                             {
-                                string input = Console.ReadLine();
-                                if (String.IsNullOrEmpty(input))
+                                string prioInput = Console.ReadLine();
+                                if (String.IsNullOrEmpty(prioInput))
                                 {
                                     break;
                                 }
                                 try
                                 {
-                                    taskmanager.SetTaskPriority(selectedList, selectedTask, Int32.Parse(input));
+                                    taskmanager.SetTaskPriority(selectedList, selectedTask, Int32.Parse(prioInput));
                                     break;
                                 }
                                 catch
