@@ -8,12 +8,12 @@
         "Priority": 3
       },
       {
-        "Title": "Task 2",
+        "Title": "Task 2 edit",
         "Completed": false,
         "Priority": 1
       },
       {
-        "Title": "test shutdown",
+        "Title": "test shutdown edit",
         "Completed": true,
         "Priority": 0
       }
@@ -31,6 +31,21 @@
         "Title": "Task 4",
         "Completed": true,
         "Priority": 1
+      }
+    ]
+  },
+  {
+    "Title": "List 3 edit 2",
+    "Tasks": [
+      {
+        "Title": "Task in list 3 edited",
+        "Completed": false,
+        "Priority": 2
+      },
+      {
+        "Title": "New task",
+        "Completed": true,
+        "Priority": 2
       }
     ]
   }

@@ -38,7 +38,7 @@
                             selectedTask = itemCount - 1;
                         }
                         display.Context = $"Tasks in {list.Title}";
-                        display.Help = "Keys: q: quit, a: add task, x: delete task, t: edit list title <Enter>: view list, j/k: Change selection b: go back";
+                        display.Help = "Keys: a: add task, x: delete task, t: edit list title, <Enter>: view list, j/k: Change selection, b: go back";
                         display.DrawScreen();
                         display.RenderTasks(list, selectedTask);
                         break;
@@ -46,7 +46,7 @@
                     case (int)State.Taskview:
                         Task task = taskmanager.GetTask(selectedList, selectedTask);
                         display.Context = $"Viewing task \"{task.Title}\"";
-                        display.Help = "Keys: q: quit, t: edit title c: toggle complete b: go back";
+                        display.Help = "Keys: t: edit title, c: toggle complete, p: change priority, b: go back";
                         display.DrawScreen();
                         display.RenderTaskview(task);
                         break;
@@ -55,18 +55,12 @@
                 switch (Console.ReadKey(true).KeyChar)
                 {
                     case 'q':
-                        display.InputRequest("Do you want to quit? (y/n)");
-                        while (true)
+                        if (state == (int)State.Lists)
                         {
-                            char choice = (Console.ReadKey(true).KeyChar);
-                            if (choice == 'y')
+                            display.InputRequest("Do you want to quit? (y/n)");
+                            if (GetConfirmation())
                             {
                                 running = false;
-                                break;
-                            }
-                            else if (choice == 'n')
-                            {
-                                break;
                             }
                         }
                         break;
@@ -97,37 +91,25 @@
                         if (state == (int)State.Lists)
                         {
                             display.InputRequest("Delete selected list? (y/n)");
-                            switch (Console.ReadKey().KeyChar)
+                            if (GetConfirmation())
                             {
-                                case 'y':
-                                    taskmanager.DeleteTaskList(selectedList);
-                                    break;
-                                case 'n':
-                                    break;
-                            }
+                                taskmanager.DeleteTaskList(selectedList);
+                            } 
                         }
                         else if (state == (int)State.Tasks)
                         {
                             display.InputRequest("Delete selected task? (y/n)");
-                            switch (Console.ReadKey().KeyChar)
+                            if (GetConfirmation())
                             {
-                                case 'y':
-                                    taskmanager.DeleteTask(selectedList, selectedTask);
-                                    break;
-                                case 'n':
-                                    break;
+                                taskmanager.DeleteTask(selectedList, selectedTask);
                             }
                         }
                         break;
 
                     case (char)13: //enter
-                        if (state == (int)State.Lists)
+                        if (state < 4)
                         {
-                            state = (int)State.Tasks;
-                        }
-                        else if (state == (int)State.Tasks)
-                        {
-                            state = (int)State.Taskview;
+                            state <<= 1;
                         }
                         break;
 
@@ -144,6 +126,7 @@
                             }
                         }
                         break;
+
                     case 'j':
                         if (itemCount > 0)
                         {
@@ -168,29 +151,24 @@
                         {
                             editing = "task";
                         }
-                        display.InputRequest("Enter new title of "+ editing + ". Leave empty to cancel edit");
+                        else
+                        {
+                            break;
+                        }
+                        display.InputRequest($"Enter new title of {editing}. Leave empty to cancel edit");
                         string titleInput = Console.ReadLine();
                         if (!String.IsNullOrEmpty(titleInput))
                         {
                             display.InputRequest($"Change title of {editing} to {titleInput}? (y/n)");
-                            while (true)
+                            if (GetConfirmation())
                             {
-                                char choice = (Console.ReadKey(true).KeyChar);
-                                if (choice == 'y')
+                                if (state == (int)State.Tasks)
                                 {
-                                    if (state == (int)State.Tasks)
-                                    {
-                                        taskmanager.SetListTitle(selectedList, titleInput);
-                                    }
-                                    else if (state == (int)State.Taskview)
-                                    {
-                                        taskmanager.SetTaskTitle(selectedList, selectedTask, titleInput);
-                                    }
-                                    break;
+                                    taskmanager.SetListTitle(selectedList, titleInput);
                                 }
-                                else if (choice == 'n')
+                                else if (state == (int)State.Taskview)
                                 {
-                                    break;
+                                    taskmanager.SetTaskTitle(selectedList, selectedTask, titleInput);
                                 }
                             }
                         }
@@ -242,6 +220,23 @@
             Lists = 1,
             Tasks = 2,
             Taskview = 4,
+        }
+
+        public static bool GetConfirmation()
+        {
+            Console.CursorVisible = false;
+            while (true)
+            {
+                char choice = (Console.ReadKey(true).KeyChar);
+                if (choice == 'y')
+                {
+                    return true;
+                }
+                else if (choice == 'n')
+                {
+                    return false;
+                }
+            }
         }
     }
 

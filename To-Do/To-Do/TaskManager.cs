@@ -12,7 +12,6 @@ namespace To_Do
         {
             _file = new FileOps();
             _lists = new List<TaskList>();
-            //Console.WriteLine(_file.GetTaskFileContent());
             string json = _file.GetTaskFileContent();
             _lists.AddRange(JsonSerializer.Deserialize<List<TaskList>>(json, 
                             new JsonSerializerOptions() {PropertyNameCaseInsensitive=true, WriteIndented=true }));

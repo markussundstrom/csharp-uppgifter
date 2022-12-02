@@ -25,7 +25,7 @@
 
         public void SetPriority(int pri)
         {
-            if (pri < 1 || pri > 3)
+            if (1 > pri || pri > 3)
             {
                 throw new ArgumentOutOfRangeException();
             }
