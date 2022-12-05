@@ -88,26 +88,29 @@
                         break;
 
                     case 'x':
-                        if (state == (int)State.Lists)
+                        if (itemCount > 0)
                         {
-                            display.InputRequest("Delete selected list? (y/n)");
-                            if (GetConfirmation())
+                            if (state == (int)State.Lists)
                             {
-                                taskmanager.DeleteTaskList(selectedList);
-                            } 
-                        }
-                        else if (state == (int)State.Tasks)
-                        {
-                            display.InputRequest("Delete selected task? (y/n)");
-                            if (GetConfirmation())
+                                display.InputRequest("Delete selected list? (y/n)");
+                                if (GetConfirmation())
+                                {
+                                    taskmanager.DeleteTaskList(selectedList);
+                                }
+                            }
+                            else if (state == (int)State.Tasks)
                             {
-                                taskmanager.DeleteTask(selectedList, selectedTask);
+                                display.InputRequest("Delete selected task? (y/n)");
+                                if (GetConfirmation())
+                                {
+                                    taskmanager.DeleteTask(selectedList, selectedTask);
+                                }
                             }
                         }
                         break;
 
                     case (char)13: //enter
-                        if (state < 4)
+                        if (state < 4 && itemCount > 0)
                         {
                             state <<= 1;
                         }
@@ -142,6 +145,10 @@
                         break;
 
                     case 't':
+                        if (itemCount <= 0)
+                        {
+                            break;
+                        }
                         string editing = "";
                         if (state == (int)State.Tasks)
                         {
