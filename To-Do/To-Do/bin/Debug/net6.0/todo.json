@@ -46,6 +46,11 @@
         "Title": "New task",
         "Completed": true,
         "Priority": 2
+      },
+      {
+        "Title": "Monday task",
+        "Completed": false,
+        "Priority": 1
       }
     ]
   }
