@@ -8,6 +8,7 @@
             Display display = new Display();
             int selectedList = 0;
             int selectedTask = 0;
+            int selectedSubtask = 0;
             int itemCount = 0;
             int state = (int)State.Lists;
             bool running = true;
@@ -20,7 +21,11 @@
                     case (int)State.Lists:
                         List<TaskList> lists = taskmanager.GetLists();
                         itemCount = lists.Count;
-                        if (selectedList >= itemCount)
+                        if (itemCount == 0)
+                        {
+                            selectedList = 0;
+                        }
+                        else if (selectedList >= itemCount)
                         {
                             selectedList = itemCount - 1;
                         }
@@ -33,7 +38,11 @@
                     case (int)State.Tasks:
                         TaskList list = taskmanager.GetTaskList(selectedList);
                         itemCount = list.Tasks.Count;
-                        if (selectedTask >= itemCount)
+                        if (itemCount == 0)
+                        {
+                            selectedTask = 0;
+                        }
+                        else if (selectedTask >= itemCount)
                         {
                             selectedTask = itemCount - 1;
                         }
@@ -45,10 +54,20 @@
 
                     case (int)State.Taskview:
                         Task task = taskmanager.GetTask(selectedList, selectedTask);
+                        itemCount = task.Subtasks.Count;
+                        if (itemCount == 0)
+                        {
+                            selectedSubtask = 0;
+                        }
+                        else if (selectedSubtask >= itemCount)
+                        {
+                            selectedSubtask = itemCount - 1;
+                        }
                         display.Context = $"Viewing task \"{task.Title}\"";
-                        display.Help = "Keys: t: edit title, c: toggle complete, p: change priority, b: go back";
+                        display.Help = "Keys: t: edit task title, c: toggle task complete, p: change priority, b: go back\n" +
+                                        "a: add new subtask, x: delete subtask, C: toggle subtask complete";
                         display.DrawScreen();
-                        display.RenderTaskview(task);
+                        display.RenderTaskview(task, selectedSubtask);
                         break;
                 }
 
@@ -57,7 +76,7 @@
                     case 'q':
                         if (state == (int)State.Lists)
                         {
-                            display.InputRequest("Do you want to quit? (y/n)");
+                            display.ShowMessage("Do you want to quit? (y/n)");
                             if (GetConfirmation())
                             {
                                 running = false;
@@ -69,7 +88,7 @@
                         string input = "";
                         if (state == (int)State.Lists)
                         {
-                            display.InputRequest("Enter name of new list:");
+                            display.ShowMessage("Enter name of new list:");
                             input = Console.ReadLine();
                             if (!String.IsNullOrEmpty(input))
                             {
@@ -78,11 +97,20 @@
                         }
                         else if (state == (int)State.Tasks)
                         {
-                            display.InputRequest("Enter name of new task:");
+                            display.ShowMessage("Enter name of new task:");
                             input = Console.ReadLine();
                             if (!String.IsNullOrEmpty(input))
                             {
                                 taskmanager.AddTask(input, selectedList);
+                            }
+                        }
+                        else if (state == (int)State.Taskview)
+                        {
+                            display.ShowMessage("Enter name of new subtask:");
+                            input = Console.ReadLine();
+                            if (!String.IsNullOrEmpty(input))
+                            {
+                                taskmanager.AddSubtask(input, selectedList, selectedTask);
                             }
                         }
                         break;
@@ -92,7 +120,7 @@
                         {
                             if (state == (int)State.Lists)
                             {
-                                display.InputRequest("Delete selected list? (y/n)");
+                                display.ShowMessage("Delete selected list? (y/n)");
                                 if (GetConfirmation())
                                 {
                                     taskmanager.DeleteTaskList(selectedList);
@@ -100,10 +128,18 @@
                             }
                             else if (state == (int)State.Tasks)
                             {
-                                display.InputRequest("Delete selected task? (y/n)");
+                                display.ShowMessage("Delete selected task? (y/n)");
                                 if (GetConfirmation())
                                 {
                                     taskmanager.DeleteTask(selectedList, selectedTask);
+                                }
+                            }
+                            else if (state == (int)State.Taskview)
+                            {
+                                display.ShowMessage("Delete selected subtask? (y/n)");
+                                if (GetConfirmation())
+                                {
+                                    taskmanager.DeleteSubtask(selectedList, selectedTask, selectedSubtask);
                                 }
                             }
                         }
@@ -127,6 +163,10 @@
                             {
                                 selectedTask = (selectedTask == 0) ? itemCount - 1 : selectedTask - 1;
                             }
+                            else if (state == (int)State.Taskview)
+                            {
+                                selectedSubtask = (selectedSubtask == 0) ? itemCount - 1 : selectedSubtask - 1;
+                            }
                         }
                         break;
 
@@ -140,6 +180,10 @@
                             else if (state == (int)State.Tasks)
                             {
                                 selectedTask = (selectedTask == itemCount -1) ? 0 : selectedTask + 1;
+                            }
+                            else if (state == (int)State.Taskview)
+                            {
+                                selectedSubtask = (selectedSubtask == itemCount - 1) ? 0 : selectedSubtask + 1;
                             }
                         }
                         break;
@@ -162,11 +206,11 @@
                         {
                             break;
                         }
-                        display.InputRequest($"Enter new title of {editing}. Leave empty to cancel edit");
+                        display.ShowMessage($"Enter new title of {editing}. Leave empty to cancel edit");
                         string titleInput = Console.ReadLine();
                         if (!String.IsNullOrEmpty(titleInput))
                         {
-                            display.InputRequest($"Change title of {editing} to {titleInput}? (y/n)");
+                            display.ShowMessage($"Change title of {editing} to {titleInput}? (y/n)");
                             if (GetConfirmation())
                             {
                                 if (state == (int)State.Tasks)
@@ -184,14 +228,29 @@
                     case 'c':
                         if (state == (int)State.Taskview)
                         {
-                            taskmanager.ToggleTaskComplete(selectedList, selectedTask);
+                            try
+                            {
+                                taskmanager.ToggleTaskComplete(selectedList, selectedTask);
+                            }
+                            catch
+                            {
+                                display.ShowMessage("Unable to set task as completed, does it have subtasks? Press enter to continue.");
+                                Console.ReadLine();
+                            }
+                        }
+                        break;
+
+                    case 'C':
+                        if (state == (int)State.Taskview && selectedSubtask >= 0)
+                        {
+                            taskmanager.ToggleSubtaskComplete(selectedList, selectedTask, selectedSubtask);
                         }
                         break;
 
                     case 'p':
                         if (state == (int)State.Taskview)
                         {
-                            display.InputRequest("Enter new priority (1-3), leave empty to cancel:");
+                            display.ShowMessage("Enter new priority (1-3), leave empty to cancel:");
                             while (true)
                             {
                                 string prioInput = Console.ReadLine();
@@ -206,7 +265,7 @@
                                 }
                                 catch
                                 {
-                                    display.InputRequest("Priority needs to be within range 1-3");
+                                    display.ShowMessage("Priority needs to be within range 1-3");
                                 }
                             }
                         }
@@ -246,5 +305,4 @@
             }
         }
     }
-
 }

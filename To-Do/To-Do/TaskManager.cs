@@ -43,6 +43,11 @@ namespace To_Do
             _lists[listIndex].Tasks.Add(new Task(name, false));
         }
 
+        public void AddSubtask(string name, int listIndex, int taskIndex)
+        {
+            _lists[listIndex].Tasks[taskIndex].AddSubtask(name);
+        }
+
         public void DeleteTaskList(int listIndex)
         {
             _lists.RemoveAt(listIndex);
@@ -51,6 +56,11 @@ namespace To_Do
         public void DeleteTask(int listIndex, int taskIndex)
         {
             _lists[listIndex].Tasks.RemoveAt(taskIndex);
+        }
+
+        public void DeleteSubtask(int listIndex, int taskIndex, int subtaskIndex)
+        {
+            _lists[listIndex].Tasks[taskIndex].Subtasks.RemoveAt(subtaskIndex);
         }
 
         public void SetListTitle(int listIndex, string newTitle)
@@ -65,7 +75,12 @@ namespace To_Do
 
         public void ToggleTaskComplete(int listIndex, int taskIndex)
         {
-            _lists[listIndex].Tasks[taskIndex].Completed = !_lists[listIndex].Tasks[taskIndex].Completed;
+            _lists[listIndex].Tasks[taskIndex].ToggleCompleted();
+        }
+
+        public void ToggleSubtaskComplete(int listIndex, int taskIndex, int subtaskIndex)
+        {
+            _lists[listIndex].Tasks[taskIndex].ToggleSubtaskCompleted(subtaskIndex);
         }
 
         public void SetTaskPriority(int listIndex, int taskIndex, int priority)

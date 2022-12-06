@@ -2,11 +2,10 @@
 {
     public class Display
     {
-        public string AppName { get; set; }
-        public string Context { get; set; }
-        public string Message { get; set; }
-        public string Help {get; set; }
-        private List<string> _items = new List<string>();
+        public string AppName { get; set; } = "";
+        public string Context { get; set; } = "";
+        public string Message { get; set; } = "";
+        public string Help { get; set; } = "";
 
 
 
@@ -37,7 +36,7 @@
 
             Console.WriteLine(Help.PadRight(Console.WindowWidth, ' '));
             Console.ResetColor();
-            Console.CursorTop = 2;
+            Console.CursorTop = 3;
             Console.CursorLeft = 0;
         }
 
@@ -94,7 +93,7 @@
             }
         }
 
-        public void RenderTaskview(Task task)
+        public void RenderTaskview(Task task, int selected)
         {
             Console.WriteLine(task.Title);
             Console.Write("Priority ");
@@ -116,9 +115,28 @@
             Console.ForegroundColor = (task.Completed) ? ConsoleColor.Green : priocolor;
             Console.WriteLine(task.Completed ? "Complete" : "Not Complete");
             Console.ResetColor();
+            if (task.Subtasks.Count > 0)
+            {
+                Console.WriteLine("Subtasks:");
+                for (int i = 0; i < task.Subtasks.Count; i++)
+                {
+                    if (i == selected)
+                    {
+                        Console.BackgroundColor = (task.Subtasks[i].Completed) ? ConsoleColor.DarkGray : ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = (task.Subtasks[i].Completed) ? ConsoleColor.DarkGray : ConsoleColor.White;
+                    }
+                    Console.Write((task.Subtasks[i].Completed) ? "[X]\t" : "[-]\t");
+                    Console.WriteLine(task.Subtasks[i].Title);
+                    Console.ResetColor();
+                }
+            }
         }
 
-        public void InputRequest(string text)
+        public void ShowMessage(string text)
         {
             Console.CursorLeft = 0;
             Console.CursorTop = Console.WindowHeight - 8;
