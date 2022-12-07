@@ -15,7 +15,6 @@ namespace To_Do
             string json = _file.GetTaskFileContent();
             _lists.AddRange(JsonSerializer.Deserialize<List<TaskList>>(json, 
                             new JsonSerializerOptions() {PropertyNameCaseInsensitive=true, WriteIndented=true }));
-            Console.WriteLine(_lists.ToString());
         }
 
         public List<TaskList> GetLists()
