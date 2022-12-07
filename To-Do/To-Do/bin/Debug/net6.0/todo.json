@@ -71,10 +71,19 @@
         "Subtasks": []
       },
       {
-        "Title": "New task",
+        "Title": "New task 2",
         "Completed": true,
         "Priority": 2,
-        "Subtasks": []
+        "Subtasks": [
+          {
+            "Title": "st1",
+            "Completed": true
+          },
+          {
+            "Title": "st2",
+            "Completed": true
+          }
+        ]
       },
       {
         "Title": "Monday task",
@@ -111,6 +120,37 @@
           },
           {
             "Title": "t3",
+            "Completed": true
+          }
+        ]
+      },
+      {
+        "Title": "task 2",
+        "Completed": false,
+        "Priority": 2,
+        "Subtasks": [
+          {
+            "Title": "st1",
+            "Completed": false
+          },
+          {
+            "Title": "st2",
+            "Completed": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Title": "list 5",
+    "Tasks": [
+      {
+        "Title": "task 1",
+        "Completed": true,
+        "Priority": 1,
+        "Subtasks": [
+          {
+            "Title": "st1",
             "Completed": true
           }
         ]
